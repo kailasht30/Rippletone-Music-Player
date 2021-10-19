@@ -43,7 +43,7 @@ public class UserController {
     }
 
     //Edit user data
-    @PutMapping("/userEdit/{id}")
+    @PutMapping("/admin/userEdit/{id}")
     public UserModel userUpdate(@RequestBody UserModel user, @PathVariable String id){
         UserModel userM = userService.findById(id);
         user.setId(id);

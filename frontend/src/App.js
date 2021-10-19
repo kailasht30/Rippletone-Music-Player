@@ -29,6 +29,7 @@ const App = () => {
           <Route path='/login' component={LoginScreen} />
           <Route path='/signup' component={SignupScreen} />
           <PrivateRoutes path='/listen' component={HomeScreen} />
+          <Route path='/search/:keyword' component={HomeScreen} />
           <PrivateRoutes path='/profile' component={ProfileScreen} />
           <Route path='/admin/userlist' component={UserListScreen} />
           <Route path='/admin/songlist' component={SongListScreen} />
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='/music/:id/' component={MusicPlayer} />
         </div>
       </main>
+      {userInfo ? <FooterMusicPlayer /> : <Footer />}
     </Router>
   );
 };

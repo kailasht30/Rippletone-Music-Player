@@ -29,7 +29,7 @@ export const listSongs =
         },
       };
       const { data } = await axios.get(
-        `http://localhost:8080/music?keyword=${keyword}`,
+        `http://localhost:8080/music%20?keyword=${keyword}`,
         config
       );
 

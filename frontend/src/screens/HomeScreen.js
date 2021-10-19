@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, Row } from 'react-bootstrap';
-import { listSongs } from '../actions/SongActions';
+import { listSongDetails, listSongs } from '../actions/SongActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { SongCard } from '../components/SongCard';
@@ -36,7 +36,13 @@ const HomeScreen = ({ match }) => {
             <Row>
               {songs.map((song) => (
                 <Col key={song.id} sm={12} md={6} lg={4} xl={3}>
-                  <SongCard song={song} />
+                  <div
+                    onClick={() => {
+                      dispatch(listSongDetails(song.musicId));
+                    }}
+                  >
+                    <SongCard song={song} />
+                  </div>
                 </Col>
               ))}
             </Row>

@@ -1,20 +1,12 @@
 package com.examly.springapp.model;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.JoinColumn;
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.CascadeType;
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class UserModel implements Serializable{
@@ -23,19 +15,15 @@ public class UserModel implements Serializable{
     @GeneratedValue(generator="uuid")
     @GenericGenerator(name="uuid", strategy="uuid2")
     private String id;
-    @NotBlank(message = "Email cannot be null")
-    @Email(message = "Please Enter a valid email")
+    @Email
     public String email;
-    @NotBlank(message = "Password cannot be null")
-    @Size(min=6 , message="Password length should not be less than 6 characters")
     private String password;
-    @NotBlank(message = "Name cannot be null")
     private String username;
-    @NotBlank(message = "Mobile Number cannot be null")
-    @Size(min=10, max=10 , message = "Please Enter 10 digit mobile number")
     private String mobileNumber;
     private Boolean active=false;
     private String role;
+    private String question;
+    private String answer;
     
     //ManyToMany Mapping (Many users can give like to many songs)
     @ManyToMany(mappedBy = "likedUser")

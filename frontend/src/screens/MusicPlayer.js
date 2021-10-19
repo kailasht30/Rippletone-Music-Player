@@ -40,7 +40,6 @@ const MusicPlayer = ({ match }) => {
           </Col>
         </>
       )}
-      <FooterMusicPlayer song={song.musicUrl} />
     </div>
   );
 };
