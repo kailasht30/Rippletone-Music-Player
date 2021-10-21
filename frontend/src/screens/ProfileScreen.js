@@ -12,6 +12,7 @@ const ProfileScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const ProfileScreen = ({ location, history }) => {
       } else {
         setName(user.username);
         setEmail(user.email);
+        setMobileNumber(user.mobileNumber);
       }
     }
   }, [history, userInfo, dispatch, user, success]);
@@ -44,7 +46,15 @@ const ProfileScreen = ({ location, history }) => {
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
     } else {
-      dispatch(updateUserProfile({ id: user.id, username, email, password }));
+      dispatch(
+        updateUserProfile({
+          id: user.id,
+          username,
+          mobileNumber,
+          email,
+          password,
+        })
+      );
     }
   };
   return (
@@ -75,14 +85,26 @@ const ProfileScreen = ({ location, history }) => {
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
+          <Form.Group controlId='number'>
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              type='number'
+              placeholder='88888888'
+              value={mobileNumber}
+              onChange={(e) => setMobileNumber(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
           <Form.Group controlId='password'>
             <Form.Label>Password</Form.Label>
             <Form.Control
               type='password'
               placeholder='Enter Password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                e.target.value == null && e.target.value.equals('')
+                  ? setPassword(user.password)
+                  : setPassword(e.target.value)
+              }
             ></Form.Control>
           </Form.Group>
 

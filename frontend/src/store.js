@@ -11,6 +11,7 @@ import {
   userUpdateReducer,
 } from './reducers/UserReducers';
 import {
+  addToPlayListReducer,
   songCreateReducer,
   songDeleteReducer,
   songDetailsReducer,
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   songDelete: songDeleteReducer,
   songCreate: songCreateReducer,
   songUpdate: songUpdateReducer,
+  addToPlayList: addToPlayListReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

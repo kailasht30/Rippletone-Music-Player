@@ -199,6 +199,9 @@ main {
   bottom: 0;
   width: 100%;
 }
+.ms-ft {
+  padding-right: 4rem !important;
+}
 .image-handle {
   padding-top: 5rem;
   display: flex;
@@ -211,6 +214,11 @@ main {
   /* margin-top: 6rem; */
 
   border-radius: 12%;
+}
+.btn-playlist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .song-title {
@@ -241,4 +249,15 @@ main {
 .right {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+}
+.like {
+  color: #1ed760;
+  font-size: 1rem;
+}
+
+.like-btn {
+  color: #1ed760;
+  font-size: 1.2rem;
+  cursor: pointer;
 }

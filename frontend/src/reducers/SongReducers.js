@@ -16,6 +16,13 @@ import {
   SONG_UPDATE_SUCCESS,
   SONG_UPDATE_FAIL,
   SONG_UPDATE_RESET,
+  SONG_CREATE_LIKE_SUCCESS,
+  SONG_CREATE_LIKE_REQUEST,
+  SONG_CREATE_LIKE_FAIL,
+  SONG_ADD_TO_PLAYLIST_REQUEST,
+  SONG_ADD_TO_PLAYLIST_SUCCESS,
+  SONG_ADD_TO_PLAYLIST_FAIL,
+  SONG_ADD_TO_PLAYLIST_RESET,
 } from '../constants/SongConstants';
 
 export const songListReducer = (state = { songs: [] }, action) => {
@@ -72,6 +79,21 @@ export const songCreateReducer = (state = {}, action) => {
   }
 };
 
+export const addToPlayListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SONG_ADD_TO_PLAYLIST_REQUEST:
+      return { loading: true };
+    case SONG_ADD_TO_PLAYLIST_SUCCESS:
+      return { loading: false, success: true, song: action.payload };
+    case SONG_ADD_TO_PLAYLIST_FAIL:
+      return { loading: false, error: action.payload };
+    case SONG_ADD_TO_PLAYLIST_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
 export const songUpdateReducer = (state = { song: {} }, action) => {
   switch (action.type) {
     case SONG_UPDATE_REQUEST:
@@ -82,6 +104,19 @@ export const songUpdateReducer = (state = { song: {} }, action) => {
       return { loading: false, error: action.payload };
     case SONG_UPDATE_RESET:
       return { song: {} };
+    default:
+      return state;
+  }
+};
+
+export const songLikeReducer = (state = { like: {} }, action) => {
+  switch (action.type) {
+    case SONG_CREATE_LIKE_REQUEST:
+      return { loading: true, ...state };
+    case SONG_CREATE_LIKE_SUCCESS:
+      return { loading: false, like: action.payload };
+    case SONG_CREATE_LIKE_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

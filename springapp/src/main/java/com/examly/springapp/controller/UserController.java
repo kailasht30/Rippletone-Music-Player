@@ -43,12 +43,25 @@ public class UserController {
     }
 
     //Edit user data
-    @PutMapping("/admin/userEdit/{id}")
+    @PutMapping("/userEdit/{id}")
     public UserModel userUpdate(@RequestBody UserModel user, @PathVariable String id){
         UserModel userM = userService.findById(id);
         user.setId(id);
+        if(user.getUsername()!=null){
+            userM.setUsername(user.getUsername());
+        }
+        if(user.getEmail()!=null){
+            userM.setEmail(user.getEmail());
+        }
+        String pass = user.getPassword();
+        if(user.getPassword()!=null && !(pass.equals(""))){
+            userM.setPassword(user.getPassword());
+        }
+        if(user.getMobileNumber()!=null){
+            userM.setMobileNumber(user.getMobileNumber());
+        }
         if(userM!=null){
-        userM = userService.updateUser(user);
+        userM = userService.updateUser(userM);
         }
         return userM;
     }

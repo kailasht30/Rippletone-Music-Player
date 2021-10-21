@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.*;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
@@ -36,7 +39,7 @@ public class PlaylistController {
 
     //Add to playlist
     @PostMapping("/addtoplaylist/{id}/{musicId}")
-    public void addSongToPlaylist(@PathVariable(value="id") String id, @PathVariable(value="musicId") String musicId){
+    public Set<MusicModel> addSongToPlaylist(@PathVariable(value="id") String id, @PathVariable(value="musicId") String musicId){
         UserModel user = userService.findById(id);
         MusicModel music = musicService.findById(musicId);
         
@@ -44,6 +47,7 @@ public class PlaylistController {
         pList.add(music);
         user.setPlaylist(pList);
         userService.updateUser(user);
+        return pList;
     }
 
     //Remove from playlist

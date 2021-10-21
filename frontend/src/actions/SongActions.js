@@ -15,7 +15,14 @@ import {
   SONG_UPDATE_REQUEST,
   SONG_UPDATE_SUCCESS,
   SONG_UPDATE_FAIL,
+  SONG_CREATE_LIKE_REQUEST,
+  SONG_CREATE_LIKE_SUCCESS,
+  SONG_CREATE_LIKE_FAIL,
+  SONG_ADD_TO_PLAYLIST_REQUEST,
+  SONG_ADD_TO_PLAYLIST_SUCCESS,
+  SONG_ADD_TO_PLAYLIST_FAIL,
 } from '../constants/SongConstants';
+import { USER_LOGIN_SUCCESS } from '../constants/UserConstants';
 
 export const listSongs =
   (keyword = '') =>
@@ -47,6 +54,74 @@ export const listSongs =
       });
     }
   };
+
+export const listPlayListSongs = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: SONG_LIST_REQUEST });
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+    const { data } = await axios.get(
+      `http://localhost:8080/playlist/${id}`,
+      config
+    );
+
+    dispatch({
+      type: SONG_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SONG_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createPlaylist = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SONG_ADD_TO_PLAYLIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+
+    const { data } = await axios.post(
+      `http://localhost:8080/addtoplaylist/${userInfo.id}/${id}`,
+      {},
+      config
+    );
+
+    dispatch({
+      type: SONG_ADD_TO_PLAYLIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SONG_ADD_TO_PLAYLIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const listSongDetails = (id) => async (dispatch) => {
   try {
@@ -148,46 +223,6 @@ export const createSong = () => async (dispatch, getState) => {
   }
 };
 
-// export const updateSong = (song) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: SONG_UPDATE_REQUEST,
-//     });
-
-//     const {
-//       userLogin: { userInfo },
-//     } = getState();
-
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Accept: 'application/json',
-//         'Access-Control-Allow-Origin': '*',
-//       },
-//     };
-
-//     const { data } = await axios.put(
-//       `http://localhost:8080/admin/music/${song.musicId}`,
-//       song,
-//       config
-//     );
-
-//     dispatch({
-//       type: SONG_UPDATE_SUCCESS,
-//       payload: data,
-//     });
-//     dispatch({ type: SONG_DETAILS_SUCCESS, payload: data });
-//   } catch (error) {
-//     dispatch({
-//       type: SONG_UPDATE_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
-
 export const updateSong = (song) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -220,6 +255,45 @@ export const updateSong = (song) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: SONG_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createLike = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SONG_CREATE_LIKE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+
+    const { data } = await axios.post(
+      `http://localhost:8080/like/${userInfo.id}/${id}`,
+      {},
+      config
+    );
+
+    dispatch({
+      type: SONG_CREATE_LIKE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SONG_CREATE_LIKE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

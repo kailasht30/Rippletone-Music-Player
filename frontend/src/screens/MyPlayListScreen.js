@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, Row } from 'react-bootstrap';
-import { listSongDetails, listSongs } from '../actions/SongActions';
+import { listPlayListSongs, listSongs } from '../actions/SongActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { SongCard } from '../components/SongCard';
 
-const HomeScreen = ({ match }) => {
-  const keyword = match.params.keyword;
+const MyPlayListScreen = () => {
   const dispatch = useDispatch();
 
   const songList = useSelector((state) => state.songList);
@@ -15,8 +14,8 @@ const HomeScreen = ({ match }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   useEffect(() => {
-    dispatch(listSongs(keyword));
-  }, [dispatch, keyword]);
+    dispatch(listPlayListSongs(userInfo.id));
+  }, [dispatch]);
   var hr = new Date().getHours();
 
   return (
@@ -49,4 +48,4 @@ const HomeScreen = ({ match }) => {
   );
 };
 
-export default HomeScreen;
+export default MyPlayListScreen;
