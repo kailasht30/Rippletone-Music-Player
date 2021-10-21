@@ -5,6 +5,7 @@ import {
   createPlaylist,
   listPlayListSongs,
   listSongDetails,
+  removeSongFromPlaylist,
 } from '../actions/SongActions';
 import FooterMusicPlayer from '../components/FooterMusicPlayer';
 import Loader from '../components/Loader';
@@ -45,9 +46,20 @@ const MusicPlayer = ({ match }) => {
               <p className='song-artist'>{song.musicArtist}</p>
             </Col>
             <Col>
-              {songList.songs.map((sone) => sone.musicId) == match.params.id ? (
+              {songList.songs
+                .map((sone) => sone.musicId)
+                .includes(match.params.id) ? (
                 <div className='btn-playlist'>
-                  <Button variant='success'>Remove from Playlist</Button>
+                  <Button
+                    variant='success'
+                    onClick={(e) =>
+                      e.stopPropagation(
+                        dispatch(removeSongFromPlaylist(song.musicId))
+                      )
+                    }
+                  >
+                    Remove from Playlist
+                  </Button>
                 </div>
               ) : (
                 <div className='btn-playlist'>

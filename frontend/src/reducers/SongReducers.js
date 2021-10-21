@@ -23,6 +23,9 @@ import {
   SONG_ADD_TO_PLAYLIST_SUCCESS,
   SONG_ADD_TO_PLAYLIST_FAIL,
   SONG_ADD_TO_PLAYLIST_RESET,
+  SONG_REMOVE_FROM_PLAYLIST_SUCCESS,
+  SONG_REMOVE_FROM_PLAYLIST_FAIL,
+  SONG_REMOVE_FROM_PLAYLIST_REQUEST,
 } from '../constants/SongConstants';
 
 export const songListReducer = (state = { songs: [] }, action) => {
@@ -74,6 +77,19 @@ export const songCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case SONG_CREATE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const removeFromPlayListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SONG_REMOVE_FROM_PLAYLIST_REQUEST:
+      return { loading: true };
+    case SONG_REMOVE_FROM_PLAYLIST_SUCCESS:
+      return { loading: false, success: true, song: action.payload };
+    case SONG_REMOVE_FROM_PLAYLIST_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

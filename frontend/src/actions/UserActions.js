@@ -125,10 +125,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      `http://localhost:8080/${userInfo.id}`,
-      config
-    );
+    const { data } = await axios.get(`http://localhost:8080/${id}`, config);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,

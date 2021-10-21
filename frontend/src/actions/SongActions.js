@@ -21,6 +21,9 @@ import {
   SONG_ADD_TO_PLAYLIST_REQUEST,
   SONG_ADD_TO_PLAYLIST_SUCCESS,
   SONG_ADD_TO_PLAYLIST_FAIL,
+  SONG_REMOVE_FROM_PLAYLIST_REQUEST,
+  SONG_REMOVE_FROM_PLAYLIST_SUCCESS,
+  SONG_REMOVE_FROM_PLAYLIST_FAIL,
 } from '../constants/SongConstants';
 import { USER_LOGIN_SUCCESS } from '../constants/UserConstants';
 
@@ -115,6 +118,45 @@ export const createPlaylist = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: SONG_ADD_TO_PLAYLIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const removeSongFromPlaylist = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SONG_REMOVE_FROM_PLAYLIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+
+    const { data } = await axios.delete(
+      `http://localhost:8080/removefromplaylist/${userInfo.id}/${id}`,
+      {},
+      config
+    );
+
+    dispatch({
+      type: SONG_REMOVE_FROM_PLAYLIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SONG_REMOVE_FROM_PLAYLIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

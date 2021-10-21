@@ -48,14 +48,17 @@ const SignupScreen = ({ location, history }) => {
             type='name'
             placeholder='John Doe'
             value={name}
+            required
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId='mobilenumber'>
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
-            type='number'
-            placeholder='+918888888888'
+            type='text'
+            placeholder='8888888888'
+            pattern='^[789]\d{9,9}$'
+            required
             value={mobilenumber}
             onChange={(e) => setMobileNumber(e.target.value)}
           ></Form.Control>
@@ -66,6 +69,8 @@ const SignupScreen = ({ location, history }) => {
           <Form.Control
             type='email'
             placeholder='johndoe@example.com'
+            pattern='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$'
+            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
@@ -76,6 +81,7 @@ const SignupScreen = ({ location, history }) => {
           <Form.Control
             type='password'
             placeholder='Enter Password'
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
@@ -85,6 +91,7 @@ const SignupScreen = ({ location, history }) => {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type='password'
+            required
             placeholder='Confirm Password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

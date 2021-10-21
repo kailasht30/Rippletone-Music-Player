@@ -39,6 +39,8 @@ const LoginScreen = ({ location, history }) => {
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type='email'
+            pattern='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$'
+            required
             placeholder='johndoe@example.com'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -48,6 +50,7 @@ const LoginScreen = ({ location, history }) => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type='password'
+            required
             placeholder='Enter Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}

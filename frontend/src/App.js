@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import FooterMusicPlayer from './components/FooterMusicPlayer';
 import MusicPlayer from './screens/MusicPlayer';
 import MyPlayListScreen from './screens/MyPlayListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 const App = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -37,6 +38,7 @@ const App = () => {
           <Route path='/admin/song/:id/edit' component={SongEditScreen} />
           <Route path='/music/:id/' component={MusicPlayer} />
           <Route path='/playlist' component={MyPlayListScreen} />
+          <Route path='/admin/user/edit/:id' component={UserEditScreen} />
         </div>
       </main>
       {userInfo ? <FooterMusicPlayer /> : <Footer />}
