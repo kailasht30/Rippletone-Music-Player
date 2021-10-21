@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,7 +19,6 @@ const MusicPlayer = ({ match }) => {
   const songList = useSelector((state) => state.songList);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
   useEffect(() => {
     dispatch(listSongDetails(match.params.id));
     dispatch(listPlayListSongs(userInfo.id));

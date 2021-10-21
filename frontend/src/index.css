@@ -261,3 +261,23 @@ main {
   font-size: 1.2rem;
   cursor: pointer;
 }
+
+.footer-poster {
+  background-color: #191414 !important;
+  padding: 0.5rem !important;
+  width: 15%;
+}
+.footer-music-ds {
+  color: #1ed760;
+  font-size: 0.75rem;
+}
+.msp-pd {
+  padding-right: 3rem !important;
+  padding-left: 0 !important;
+}
+
+@media (max-width: 800px) {
+  .footer-music-ds {
+    display: none;
+  }
+}
