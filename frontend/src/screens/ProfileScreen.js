@@ -86,7 +86,7 @@ const ProfileScreen = ({ location, history }) => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId='number'>
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>Mobile Number</Form.Label>
             <Form.Control
               type='number'
               placeholder='88888888'
